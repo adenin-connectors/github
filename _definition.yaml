@@ -1,0 +1,33 @@
+ConnectorTitle: Github
+AccessCodeServiceEndpoint: https://github.com/login/oauth/authorize
+AccessTokenServiceEndpoint: https://github.com/login/oauth/access_token
+ApiEndPoint: https://api.github.com
+UserName: hide
+UserPassword: hide
+ClientId: required
+ClientSecret: required
+AccessCodeServiceUrl: hide
+AccessTokenServiceUrl: hide
+Personalized: !!bool true
+ApiKey: hide
+ServiceUrl: hide
+ServiceUrlHint: ''
+XML2JSON: hide
+ImpersonateOAuth: required
+Interface: hide
+Custom1: hide
+Custom1Label: Custom Field 1
+Custom1Hint: ''
+Custom2: hide
+Custom2Label: Custom Field 2
+Custom3: hide
+Custom2Hint: ''
+Custom3Label: Custom Field 3
+Custom3Hint: ''
+Scopes:
+- ScopeName: api
+  ScopeDescription: API Access
+  IsDefault: false
+- ScopeName: repo
+  ScopeDescription: Grants full access to private and public repositories.
+  IsDefault: false
