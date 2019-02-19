@@ -15,7 +15,7 @@ function api(path, opts) {
 	opts = Object.assign({
 		json: true,
 		token: _activity.Context.connector.token,
-		endpoint: _activity.Context.connector.endpoint,
+		endpoint: 'https://api.github.com',
 		agent: {
 			http: new HttpAgent(),
 			https: new HttpsAgent()
@@ -28,7 +28,6 @@ function api(path, opts) {
 	}, opts.headers);
 
 	if (opts.token) {
-	//	opts.headers.Authorization = `Bearer ${opts.token}`;
 		opts.headers.Authorization=`token ${opts.token}`;
 	}
 
