@@ -6,37 +6,36 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
     try {
-        api.initialize(activity);  
+        api.initialize(activity);
 
-        const response = await api('/issues?state=opened');
+        const response = await api('/issues?state=opened&filter=assigned');
 
-        let ticketStatus ={};
-        if(response.body.length!=0){
-            ticketStatus = { 
-                title: 'Open Tickets', 
-                description: `You have ${response.body.length} tickets assigned`, 
-                color: 'blue', 
-                value: response.body.length, 
-                url: response.body[0].html_url.replace('/'+response.body[0].number,''), 
-                urlLabel: 'All tickets', 
+        let assignedIssuesUrl = 'https://github.com/issues/assigned';
+
+        let ticketStatus = {
+            title: 'Open Tickets',
+            url: openIssuesUrl,
+            urlLabel: 'All tickets',
+        };
+
+        if (response.body.length != 0) {
+            ticketStatus = {
+                description: `You have ${response.body.length} tickets assigned`,
+                color: 'blue',
+                value: response.body.length,
                 actionable: true
             }
-        }else{
-            ticketStatus = { 
-                title: 'Open Tickets', 
-                description: `You have no tickets assigned`, 
-                url: response.body[0].html_url.replace('/'+response.body[0].number,''), 
-                urlLabel: 'All tickets', 
+        } else {
+            ticketStatus = {
+                title: 'Open Tickets',
+                description: `You have no tickets assigned`,
                 actionable: false
             }
         }
 
-        activity.Response.Data = {
-            message: ticketStatus
-        };
+        activity.Response.Data = ticketStatus;
 
     } catch (error) {
         handleError(error, activity);
     }
-
 };
