@@ -14,7 +14,7 @@ module.exports = async (activity) => {
 
         let ticketStatus = {
             title: 'Open Tickets',
-            url: openIssuesUrl,
+            url: assignedIssuesUrl,
             urlLabel: 'All tickets',
         };
 
