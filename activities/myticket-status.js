@@ -10,11 +10,9 @@ module.exports = async (activity) => {
 
     const response = await api('/issues?state=opened&filter=assigned');
 
-    let assignedIssuesUrl = 'https://github.com/issues/assigned';
-
     let ticketStatus = {
       title: 'Open Tickets',
-      url: assignedIssuesUrl,
+      url: 'https://github.com/issues/assigned',
       urlLabel: 'All tickets',
     };
 
