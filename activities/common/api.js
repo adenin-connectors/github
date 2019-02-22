@@ -11,7 +11,6 @@ function api(path, opts) {
     return Promise.reject(new TypeError(`Expected \`path\` to be a string, got ${typeof path}`));
   }
 
-
   opts = Object.assign({
     json: true,
     token: _activity.Context.connector.token,

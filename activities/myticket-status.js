@@ -18,6 +18,7 @@ module.exports = async (activity) => {
 
     if (response.body.length != 0) {
       ticketStatus = {
+        ...ticketStatus,
         description: `You have ${response.body.length} tickets assigned`,
         color: 'blue',
         value: response.body.length,
@@ -25,6 +26,8 @@ module.exports = async (activity) => {
       }
     } else {
       ticketStatus = {
+        ...ticketStatus,
+        description: `You have no tickets assigned`,
         actionable: false
       }
     }
