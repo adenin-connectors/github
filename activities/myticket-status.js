@@ -41,6 +41,6 @@ module.exports = async (activity) => {
 
   } catch (error) {
     
-    cfActivity.handleError(error, activity);
+    cfActivity.handleError(activity, error);
   }
 };
