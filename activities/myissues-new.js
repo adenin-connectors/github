@@ -14,9 +14,7 @@ module.exports = async (activity) => {
 
     var dateRange = cfActivity.dateRange(activity, "today");
     let start = new Date(dateRange.startDate);
-    start.setDate(start.getDate() - 1);
     let end = new Date(dateRange.endDate);
-    end.setDate(end.getDate() + 1);
 
     let requestUrl = `/search/issues?q=assignee:${currentUser.body.login}+state:open+` +
       `created:${start.getFullYear()}-${("0" + (start.getMonth() + 1)).slice(-2)}-${("0" + start.getDate()).slice(-2)}..` +
