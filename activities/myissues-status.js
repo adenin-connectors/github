@@ -7,40 +7,38 @@ module.exports = async (activity) => {
   try {
     api.initialize(activity);
 
-    const response = await api('/issues?state=opened&filter=assigned');
+    const response = await api(`/issues?q=filter:assigned+state:open`);
 
     if (!cfActivity.isResponseOk(activity, response)) {
       return;
     }
 
-    let ticketStatus = {
-      title: 'Open Tickets',
+    let issuesStatus = {
+      title: 'Open Issues',
       url: 'https://github.com/issues/assigned',
-      urlLabel: 'All tickets',
+      urlLabel: 'All Issues',
     };
 
     let issueCount = response.body.length;
-    
+
     if (issueCount != 0) {
-      ticketStatus = {
-        ...ticketStatus,
+      issuesStatus = {
+        ...issuesStatus,
         description: `You have ${issueCount > 1 ? issueCount + " issues" : issueCount + " issue"} assigned`,
         color: 'blue',
         value: response.body.length,
         actionable: true
-      }
+      };
     } else {
-      ticketStatus = {
-        ...ticketStatus,
-        description: `You have no tickets assigned`,
+      issuesStatus = {
+        ...issuesStatus,
+        description: `You have no issues assigned`,
         actionable: false
-      }
+      };
     }
 
-    activity.Response.Data = ticketStatus;
-
+    activity.Response.Data = issuesStatus;
   } catch (error) {
-    
     cfActivity.handleError(activity, error);
   }
 };

@@ -8,7 +8,7 @@ module.exports = async function (activity) {
   try {
     api.initialize(activity);
 
-    const response = await api('/issues?state=opened&filter=assigned');
+    const response = await api('/issues?q=filter:assigned+state:open');
 
     if (!cfActivity.isResponseOk(activity, response)) {
       return;

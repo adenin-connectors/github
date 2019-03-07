@@ -52,7 +52,7 @@ api.convertIssues = function (response) {
   }
 
   return { items: items };
-}
+};
 const helpers = [
   'get',
   'post',
