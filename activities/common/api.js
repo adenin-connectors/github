@@ -47,7 +47,7 @@ api.convertIssues = function (response) {
 
   for (let i = 0; i < body.length; i++) {
     let raw = body[i];
-    let item = { id: raw.id, title: raw.title, description: raw.body, link: raw.url, raw: raw }
+    let item = {count:body.length, id: raw.id, title: raw.title, description: raw.body, link: raw.url, raw: raw }
     items.push(item);
   }
 
