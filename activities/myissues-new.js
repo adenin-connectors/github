@@ -1,18 +1,13 @@
 'use strict';
-
-const cfActivity = require('@adenin/cf-activity');
 const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    api.initialize(activity);
     const currentUser = await api('/user');
 
-    if (!cfActivity.isResponseOk(activity, currentUser)) {
-      return;
-    }
+    if (Activity.isErrorResponse(currentUser)) return;
 
-    var dateRange = cfActivity.dateRange(activity, "today");
+    var dateRange = Activity.dateRange("today");
     let start = new Date(dateRange.startDate);
     let end = new Date(dateRange.endDate);
 
@@ -22,22 +17,20 @@ module.exports = async (activity) => {
 
     const response = await api(requestUrl);
 
-    if (!cfActivity.isResponseOk(activity, response)) {
-      return;
-    }
+    if (Activity.isErrorResponse(response)) return;
 
     let issuesStatus = {
-      title: 'New Open Issues',
+      title: T('New Open Issues'),
       url: 'https://github.com/issues/assigned',
-      urlLabel: 'All Issues',
+      urlLabel: T('All Issues'),
     };
 
     let issueCount = response.body.items.length;
-
+    
     if (issueCount != 0) {
       issuesStatus = {
         ...issuesStatus,
-        description: `You have ${issueCount > 1 ? issueCount + " new issues" : issueCount + " new issue"} assigned`,
+        description: issueCount > 1 ? T("You have {0} new issues.", issueCount) : T("You have 1 new issue."),
         color: 'blue',
         value: response.body.length,
         actionable: true
@@ -45,13 +38,13 @@ module.exports = async (activity) => {
     } else {
       issuesStatus = {
         ...issuesStatus,
-        description: `You have no new issues assigned`,
+        description: T(`You have no new issues assigned`),
         actionable: false
       };
     }
 
     activity.Response.Data = issuesStatus;
   } catch (error) {
-    cfActivity.handleError(activity, error);
+    Activity.handleError(error);
   }
 };
