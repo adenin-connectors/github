@@ -21,12 +21,12 @@ module.exports = async (activity) => {
 
     let issuesStatus = {
       title: T('New Open Issues'),
-      url: 'https://github.com/issues/assigned',
-      urlLabel: T('All Issues'),
+      link: 'https://github.com/issues/assigned',
+      linkLabel: T('All Issues'),
     };
 
     let issueCount = response.body.items.length;
-    
+
     if (issueCount != 0) {
       issuesStatus = {
         ...issuesStatus,
