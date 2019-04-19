@@ -4,8 +4,8 @@
   "You have {0} issues.": "Imate {0} problema.",
   "You have 1 issue.": "Imate 1 problem.",
   "You have no issues assigned.": "Nemate dodeljenih problema.",
-  "New Open Issues" : "Novi Otvoreni Problemi",
-  "You have {0} new issues." : "Imate {0} nova problema.",
-  "You have 1 new issue." : "Imate 1 novi problem.",
-  "You have no new issues assigned" : "Nemate novih dodeljenih problema."
+  "New Open Issues": "Novi Otvoreni Problemi",
+  "You have {0} new issues.": "Imate {0} nova problema.",
+  "You have 1 new issue.": "Imate 1 novi problem.",
+  "You have no new issues assigned": "Nemate novih dodeljenih problema."
 }
