@@ -3,14 +3,15 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
+    api.initialize(activity);
     const response = await api(`/issues?q=filter:assigned+state:open`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     let issuesStatus = {
-      title: T('Open Issues'),
+      title: T(activity, 'Open Issues'),
       link: 'https://github.com/issues/assigned',
-      linkLabel: T('All Issues'),
+      linkLabel: T(activity, 'All Issues'),
     };
 
     let issueCount = response.body.length;
@@ -18,7 +19,7 @@ module.exports = async (activity) => {
     if (issueCount != 0) {
       issuesStatus = {
         ...issuesStatus,
-        description: issueCount > 1 ? T("You have {0} issues.", issueCount) : T("You have 1 issue."),
+        description: issueCount > 1 ? T(activity, "You have {0} issues.", issueCount) : T(activity, "You have 1 issue."),
         color: 'blue',
         value: response.body.length,
         actionable: true
@@ -26,13 +27,13 @@ module.exports = async (activity) => {
     } else {
       issuesStatus = {
         ...issuesStatus,
-        description: T(`You have no issues assigned.`),
+        description: T(activity, `You have no issues assigned.`),
         actionable: false
       };
     }
 
     activity.Response.Data = issuesStatus;
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };

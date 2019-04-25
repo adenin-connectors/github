@@ -3,14 +3,15 @@ const api = require('./common/api');
 
 module.exports = async function (activity) {
   try {
-    var pagination = Activity.pagination();
+    var pagination = $.pagination(activity);
+    api.initialize(activity);
     const response = await api(`/issues?q=filter:assigned+state:open&page=${pagination.page}&per_page=${pagination.pageSize}`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     // convert response to items[]
     activity.Response.Data = api.convertIssues(response);
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };

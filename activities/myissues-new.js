@@ -3,11 +3,11 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
+    api.initialize(activity);
     const currentUser = await api('/user');
+    if ($.isErrorResponse(activity, currentUser)) return;
 
-    if (Activity.isErrorResponse(currentUser)) return;
-
-    var dateRange = Activity.dateRange("today");
+    var dateRange = $.dateRange(activity, "today");
     let start = new Date(dateRange.startDate);
     let end = new Date(dateRange.endDate);
 
@@ -17,12 +17,12 @@ module.exports = async (activity) => {
 
     const response = await api(requestUrl);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     let issuesStatus = {
-      title: T('New Open Issues'),
+      title: T(activity, 'New Open Issues'),
       link: 'https://github.com/issues/assigned',
-      linkLabel: T('All Issues'),
+      linkLabel: T(activity, 'All Issues'),
     };
 
     let issueCount = response.body.items.length;
@@ -30,7 +30,7 @@ module.exports = async (activity) => {
     if (issueCount != 0) {
       issuesStatus = {
         ...issuesStatus,
-        description: issueCount > 1 ? T("You have {0} new issues.", issueCount) : T("You have 1 new issue."),
+        description: issueCount > 1 ? T(activity, "You have {0} new issues.", issueCount) : T(activity, "You have 1 new issue."),
         color: 'blue',
         value: response.body.length,
         actionable: true
@@ -38,13 +38,13 @@ module.exports = async (activity) => {
     } else {
       issuesStatus = {
         ...issuesStatus,
-        description: T(`You have no new issues assigned`),
+        description: T(activity, `You have no new issues assigned`),
         actionable: false
       };
     }
 
     activity.Response.Data = issuesStatus;
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };
