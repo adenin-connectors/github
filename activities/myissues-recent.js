@@ -19,31 +19,21 @@ module.exports = async (activity) => {
 
     if ($.isErrorResponse(activity, response)) return;
 
-    let issuesStatus = {
-      title: T(activity, 'New Open Issues'),
-      link: 'https://github.com/issues/assigned',
-      linkLabel: T(activity, 'All Issues'),
-    };
+    activity.Response.Data.items = api.convertIssues(response.body.items);
+    let value = activity.Response.Data.items.items.length;
+    activity.Response.Data.title = T(activity, 'Recent Open Issues');
+    activity.Response.Data.link = 'https://github.com/issues/assigned';
+    activity.Response.Data.linkLabel = T(activity, 'All Issues');
+    activity.Response.Data.actionable = value > 0;
 
-    let issueCount = response.body.items.length;
-
-    if (issueCount != 0) {
-      issuesStatus = {
-        ...issuesStatus,
-        description: issueCount > 1 ? T(activity, "You have {0} new issues.", issueCount) : T(activity, "You have 1 new issue."),
-        color: 'blue',
-        value: response.body.length,
-        actionable: true
-      };
+    if (value > 0) {
+      activity.Response.Data.value = value;
+      activity.Response.Data.color = 'blue';
+      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} recent assigned issues.", value)
+        : T(activity, "You have 1 recent assigned issue.");
     } else {
-      issuesStatus = {
-        ...issuesStatus,
-        description: T(activity, `You have no new issues assigned`),
-        actionable: false
-      };
+      activity.Response.Data.description = T(activity, `You have no recent issues assigned.`);
     }
-
-    activity.Response.Data = issuesStatus;
   } catch (error) {
     $.handleError(activity, error);
   }

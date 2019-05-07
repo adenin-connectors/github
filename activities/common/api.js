@@ -1,5 +1,4 @@
 'use strict';
-
 const got = require('got');
 const HttpAgent = require('agentkeepalive');
 const HttpsAgent = HttpAgent.HttpsAgent;
@@ -38,16 +37,17 @@ function api(path, opts) {
 }
 
 /**maps response data to items */
-api.convertIssues = function (response) {
+api.convertIssues = function (issues) {
   const items = [];
-  const body = response.body;
 
-  for (let i = 0; i < body.length; i++) {
-    const raw = body[i];
+  for (let i = 0; i < issues.length; i++) {
+    const raw = issues[i];
     const item = {
+      count: issues.length,
       id: raw.id,
       title: raw.title,
       description: raw.body,
+      date: raw.created_at,
       link: raw.url,
       raw: raw
     };
@@ -55,9 +55,7 @@ api.convertIssues = function (response) {
     items.push(item);
   }
 
-  return {
-    items: items
-  };
+  return { items };
 };
 
 const helpers = [

@@ -1,8 +1,7 @@
-ServiceName: 'myissues-new'
 InterfaceName: 'status'
 Description: 'My New Issues'
 APIDoc: ''
-Interfaces: 'daterange'
+Interfaces: 'daterange,status'
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''
