@@ -1,11 +1,17 @@
 {
   "Open Issues": "Otvoreni Problemi",
   "All Issues": "Svi Problemi",
-  "You have {0} issues.": "Imate {0} problema.",
-  "You have 1 issue.": "Imate 1 problem.",
+  "You have {0} assigned issues.": "Imate {0} dodeljena problema.",
+  "You have 1 assigned issue.": "Imate 1 dodeljen problem.",
   "You have no issues assigned.": "Nemate dodeljenih problema.",
-  "New Open Issues": "Novi Otvoreni Problemi",
-  "You have {0} new issues.": "Imate {0} nova problema.",
-  "You have 1 new issue.": "Imate 1 novi problem.",
-  "You have no new issues assigned": "Nemate novih dodeljenih problema."
+  "Recent Open Issues": "Novi Otvoreni Problemi",
+  "You have {0} recent assigned issues.": "Imate {0} dodeljena nova problema.",
+  "You have 1 recent assigned issue.": "Imate 1 novi dodeljeni problem.",
+  "You have no recent issues assigned.": "Nemate novih dodeljenih problema.",
+  "You have {0} open issues.": "Imate {0} otvorena problema.",
+  "You have 1 open issue.": "Imate 1 otvoren problem.",
+  "You have no open issues.": "Nemate otvorene probleme.",
+  "You have {0} recent open issues.": "Imate {0} nedavno otvorenih problema.",
+  "You have 1 recent open issue.": "Imate 1 nedavno otvoren problem.",
+  "You have no recent open issues.": "Nemate nedavno otvorenih problema."
 }

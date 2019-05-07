@@ -5,7 +5,7 @@ module.exports = async function (activity) {
   try {
     api.initialize(activity);
     let pagination = $.pagination(activity);
-    const response = await api(`/issues?filter=all&state=open`);
+    const response = await api(`/issues?filter=assigned&state=open&page=${pagination.page}&per_page=${pagination.pageSize}`);
 
     if ($.isErrorResponse(activity, response)) return;
 
@@ -19,10 +19,10 @@ module.exports = async function (activity) {
     if (value > 0) {
       activity.Response.Data.value = value;
       activity.Response.Data.color = 'blue';
-      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} open issues.", value)
-        : T(activity, "You have 1 open issue.");
+      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} assigned issues.", value)
+        : T(activity, "You have 1 assigned issue.");
     } else {
-      activity.Response.Data.description = T(activity, `You have no open issues.`);
+      activity.Response.Data.description = T(activity, `You have no issues assigned.`);
     }
   } catch (error) {
     $.handleError(activity, error);

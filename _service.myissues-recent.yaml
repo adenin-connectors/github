@@ -1,0 +1,7 @@
+InterfaceName: 'status'
+Description: 'My New Issues'
+APIDoc: ''
+Interfaces: 'daterange,status'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''
