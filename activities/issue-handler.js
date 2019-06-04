@@ -33,7 +33,7 @@ module.exports = async (activity) => {
 
     if (request.issue) {
 
-      let date = new Date(request.issue.updated_at).toJSON();
+      let date = new Date(request.issue.updated_at).toISOString();
       entity = {
         _type: "issue",
         id: "" + request.issue.id,
@@ -65,17 +65,22 @@ module.exports = async (activity) => {
           }
         }
 
-        collections.push({ name: "my", users: userMails, date: date });
+        // roles assigned to user
+        let roles = [];
 
-        // push owner mail
-        let ownerMail = responses[promises.length - 1].body.email;
-        if (ownerMail) {
-          if (!userMails.includes(ownerMail)) {
-            userMails.push(ownerMail);
+        collections.push({ name: "my", users: userMails, roles: roles, date: date });
+
+        let allMails = [];
+        if (request.issue.state != "close") {
+          // push owner mail
+          let ownerMail = responses[promises.length - 1].body.public_email;
+          if (ownerMail != "" && !userMails.includes(ownerMail)) {
+            allMails.push(...allMails);
+            allMails.push(ownerMail);
           }
-        }
 
-        collections.push({ name: "open", users: userMails, date: date });
+          collections.push({ name: "open", users: allMails, roles: roles, date: date });
+        }
       }
     }
     activity.Response.Data = { entity: entity, collections: collections };

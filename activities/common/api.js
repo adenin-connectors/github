@@ -43,7 +43,6 @@ api.convertIssues = function (issues) {
   for (let i = 0; i < issues.length; i++) {
     const raw = issues[i];
     const item = {
-      count: issues.length,
       id: raw.id,
       title: raw.title,
       description: raw.body,
