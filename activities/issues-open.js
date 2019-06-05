@@ -8,7 +8,7 @@ module.exports = async function (activity) {
     var dateRange = $.dateRange(activity, "today");
     let page = 1;
     let maxResults = 100;
-    let response = await api(`/issues?filter=all&state=all&since=${dateRange.startDate}&page=${page}&per_page=${maxResults}`);
+    let response = await api(`/issues?filter=all&state=open&since=${dateRange.startDate}&page=${page}&per_page=${maxResults}`);
     if ($.isErrorResponse(activity, response)) return;
     allIssues.push(...response.body);
 
@@ -32,7 +32,7 @@ module.exports = async function (activity) {
     let pagiantedItems = paginateItems(allIssues, pagination);
 
     activity.Response.Data.items = api.convertIssues(pagiantedItems);
-    activity.Response.Data.title = T(activity, 'All Issues');
+    activity.Response.Data.title = T(activity, 'Open Issues');
     activity.Response.Data.link = 'https://github.com/issues/assigned';
     activity.Response.Data.linkLabel = T(activity, 'All Issues');
     activity.Response.Data.actionable = value > 0;
@@ -40,10 +40,10 @@ module.exports = async function (activity) {
     if (value > 0) {
       activity.Response.Data.value = value;
       activity.Response.Data.color = 'blue';
-      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} issues.", value)
-        : T(activity, "You have 1 issue.");
+      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} open issues.", value)
+        : T(activity, "You have 1 open issue.");
     } else {
-      activity.Response.Data.description = T(activity, `You have no issues.`);
+      activity.Response.Data.description = T(activity, `You have no open issues.`);
     }
   } catch (error) {
     $.handleError(activity, error);

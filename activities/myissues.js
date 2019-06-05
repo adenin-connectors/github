@@ -22,7 +22,7 @@ module.exports = async (activity) => {
 
     activity.Response.Data.items = api.convertIssues(response.body.items);
     let value = response.body.total_count;
-    activity.Response.Data.title = T(activity, 'Recent Open Issues');
+    activity.Response.Data.title = T(activity, 'Open Issues');
     activity.Response.Data.link = 'https://github.com/issues/assigned';
     activity.Response.Data.linkLabel = T(activity, 'All Issues');
     activity.Response.Data.actionable = value > 0;
@@ -30,10 +30,10 @@ module.exports = async (activity) => {
     if (value > 0) {
       activity.Response.Data.value = value;
       activity.Response.Data.color = 'blue';
-      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} recent assigned issues.", value)
-        : T(activity, "You have 1 recent assigned issue.");
+      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} assigned issues.", value)
+        : T(activity, "You have 1 assigned issue.");
     } else {
-      activity.Response.Data.description = T(activity, `You have no recent issues assigned.`);
+      activity.Response.Data.description = T(activity, `You have no issues assigned.`);
     }
   } catch (error) {
     $.handleError(activity, error);

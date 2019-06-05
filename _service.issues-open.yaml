@@ -1,0 +1,8 @@
+InterfaceName: 'status'
+Description: 'List Of Open Issues'
+APIDoc: ''
+Interfaces: 'items,daterange,pagination'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''
+
