@@ -75,7 +75,7 @@ module.exports = async (activity) => {
 
         // case 3: When AssignedTo is not empty and open we return a collection “my”, with only users: AssignedTo
         // if assignedTo is empty we use roles instead
-        if (userMails.length > 1) {
+        if (userMails.length > 0) {
           collections.push({ name: "my", users: userMails, roles: [], date: date });
         } else {
           collections.push({ name: "my", users: [], roles: roles, date: date });
@@ -86,7 +86,7 @@ module.exports = async (activity) => {
 
         // case 5: When DueDate is provided and open we return a collection “my-due”, with only users: AssignedTo, date = DueDate
         // if assignedTo is empty we use roles
-        if (userMails.length > 1) {
+        if (userMails.length > 0) {
           collections.push({ name: "my-due", users: userMails, roles: [], date: date });
         } else {
           collections.push({ name: "my-due", users: [], roles: roles, date: date });
