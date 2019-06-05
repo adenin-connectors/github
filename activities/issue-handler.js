@@ -62,7 +62,7 @@ module.exports = async (activity) => {
           userMails.push(responses[i].body.email);
         }
       }
-      userMails.push("dmarkovic@smartnet.rs");
+      
       let roles = [];
 
       // case 1: A collection "all" is returned with users and roles
