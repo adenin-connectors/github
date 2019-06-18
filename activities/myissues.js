@@ -14,7 +14,7 @@ module.exports = async (activity) => {
     let requestUrl = `/search/issues?q=assignee:${currentUser.body.login}+state:open+` +
       `created:${start.getFullYear()}-${("0" + (start.getMonth() + 1)).slice(-2)}-${("0" + start.getDate()).slice(-2)}..` +
       `${end.getFullYear()}-${("0" + (end.getMonth() + 1)).slice(-2)}-${("0" + end.getDate()).slice(-2)}` +
-      `&page=${pagination.page}&per_page=${pagination.pageSize}`;
+      `&page=${pagination.page}&per_page=${pagination.pageSize}&sort:author-date-desc`;
 
     const response = await api(requestUrl);
 
@@ -29,6 +29,7 @@ module.exports = async (activity) => {
 
     if (value > 0) {
       activity.Response.Data.value = value;
+      activity.Response.Data.date = activity.Response.Data.items[0].date;
       activity.Response.Data.color = 'blue';
       activity.Response.Data.description = value > 1 ? T(activity, "You have {0} assigned issues.", value)
         : T(activity, "You have 1 assigned issue.");
