@@ -7,7 +7,7 @@ module.exports = async (activity) => {
     const currentUser = await api('/user');
     if ($.isErrorResponse(activity, currentUser)) return;
 
-    var dateRange = $.dateRange(activity, "today");
+    var dateRange = $.dateRange(activity);
     let start = new Date(dateRange.startDate);
     let end = new Date(dateRange.endDate);
     let pagination = $.pagination(activity);

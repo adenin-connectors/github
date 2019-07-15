@@ -5,7 +5,7 @@ module.exports = async function (activity) {
   try {
     api.initialize(activity);
     let allIssues = [];
-    var dateRange = $.dateRange(activity, "today");
+    var dateRange = $.dateRange(activity);
     let page = 1;
     let maxResults = 100;
     let response = await api(`/issues?filter=all&state=all&since=${dateRange.startDate}&page=${page}&per_page=${maxResults}` +
